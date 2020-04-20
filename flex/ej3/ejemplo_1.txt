@@ -1,0 +1,24 @@
+(*
+Fichero de ejemplo SIN errores para
+el analizador léxico del ejercicio
+de flex número 3
+*)
+
+inicio # El programa calcula el n-esimo numero de fibonacci iterativamente
+	escribir( 'N número a calcular: ' );
+	leer( n );
+	anterior := 0;
+	anterior_2 := 0;
+	actual := 1;
+	si n <= 0 entonces
+		escribir ( 'El número debe ser positivo' );
+	si_no
+		para i desde 1 hasta n paso 1
+			anterior_2 := anterior ;
+			anterior := actual ;
+			actual := anterior + anterior_2 ; 
+		fin_para
+		escribir ( actual );
+	fin_si
+fin
+	
