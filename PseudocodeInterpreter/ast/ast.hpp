@@ -1641,6 +1641,40 @@ public:
     void evaluate();
 };
 
+/*!
+  \class   QuotientNode
+  \brief   Definition of atributes and methods of QuotientNode class
+  \note    QuotientNode Class publicly inherits from NumericOperatorNode class
+		   and adds its own print and evaluate functions
+*/
+class QuotientNode : public NumericOperatorNode {
+public:
+    /*!
+	\brief Constructor of QuotientNode uses NumericOperatorNode's constructor as members initializer
+	\param L: pointer to ExpNode
+	\param R: pointer to ExpNode
+	\post  A new QuotientNode is created with the parameters
+*/
+    QuotientNode(ExpNode* L, ExpNode* R)
+        : NumericOperatorNode(L, R)
+    {
+        // Empty
+    }
+    /*!
+	\brief   Print the DivisionNode
+	\return  void
+	\sa		 evaluate()
+*/
+    void print();
+
+    /*!
+	\brief   Evaluate the DivisionNode
+	\return  double
+	\sa		 print
+*/
+    double evaluateNumber();
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -8,18 +8,10 @@
 #include <iostream>
 #include <string>
 
-/*******************************************/
-/* NEW in example 5 */
-/* pow */
 #include <math.h>
-/*******************************************/
 
-/*******************************************/
-/* NEW in example 6 */
-/* Use for recovery of runtime errors */
 #include <setjmp.h>
 #include <signal.h>
-/*******************************************/
 
 /* Error recovery functions */
 #include "../error/error.hpp"
@@ -28,54 +20,27 @@
 #include "../includes/macros.hpp"
 
 #include <cstdio>
-/*******************************************/
+
 /*
-  NEW in example 16
-  AST class
   IMPORTANT: this file must be before init.hpp
 */
 #include "../ast/ast.hpp"
 
 
-/*******************************************/
-/* NEW in example 7 */
-/* Table of symbol */
+
 #include "../table/table.hpp"
-/*******************************************/
-
-/*******************************************/
 #include "../table/numericVariable.hpp"
-/*******************************************/
-
-/* NEW in example 15 */
 #include "../table/logicalVariable.hpp"
 
-/*******************************************/
-/* NEW in example 11 */
 #include "../table/numericConstant.hpp"
-/*******************************************/
-
-/*******************************************/
-/* NEW in example 15 */
 #include "../table/logicalConstant.hpp"
-/*******************************************/
 
-/*******************************************/
-/* NEW in example 13 */
+
 #include "../table/builtinParameter1.hpp"
-/*******************************************/
-
-/*******************************************/
-/* NEW in example 14 */
 #include "../table/builtinParameter0.hpp"
 #include "../table/builtinParameter2.hpp"
-/*******************************************/
 
-
-/*******************************************/
-/* NEW in example 10 */
 #include "../table/init.hpp"
-/*******************************************/
 
 /*!
 	\brief  Lexical or scanner function
@@ -133,9 +98,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /* Initial grammar symbol */
 %start program
 
-/*******************************************/
-/* Data type YYSTYPE  */
-/* NEW in example 4 */
+
 %union {
   char * identifier; 				 /* NEW in example 7 */
   double number;
@@ -257,7 +220,7 @@ stmtlist:  /* empty: epsilon rule */
 ;
 
 
-stmt: SEMICOLON  /* Empty statement: ";" */
+stmt: SEMICOLON
 	  {
 		// Create a new empty statement node
 		$$ = new lp::EmptyStmt();
@@ -298,7 +261,6 @@ controlSymbol:  /* Epsilon rule*/
 		}
 	;
 
-	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
 	IF controlSymbol cond THEN stmt ENDIF
     {
@@ -426,6 +388,12 @@ exp:	NUMBER
 		{
 		  // Create a new division node
 		  $$ = new lp::DivisionNode($1, $3);
+	   }
+
+	| 	exp QUOTIENT exp
+		{
+		  // Create a new integer division node
+		  $$ = new lp::QuotientNode($1, $3);
 	   }
 
 	| 	LPAREN exp RPAREN
