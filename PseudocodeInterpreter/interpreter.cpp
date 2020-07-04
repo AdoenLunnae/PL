@@ -91,7 +91,7 @@ lp::Table table; //!< Table of Symbols
 int main(int argc, char* argv[])
 {
     // Option -t needed
-    //  yydebug = 1;
+    // yydebug = 1;
 
     /*
    If the input file exists
