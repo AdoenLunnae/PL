@@ -67,6 +67,17 @@ public:
     {
         return false;
     }
+
+    /*!
+		\brief   Evaluate the expression as STRING
+		\warning Virtual function: could be redefined in the heir classes
+		\return  string
+		\sa		 print
+	*/
+    virtual std::string evaluateString()
+    {
+        return "";
+    }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,6 +131,13 @@ public:
 		\sa		 print
 	*/
     bool evaluateBool();
+
+    /*!
+		\brief   Evaluate the Variable as STRING
+		\return  string
+		\sa		 print
+	*/
+    std::string evaluateString();
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1592,9 +1610,11 @@ public:
     void evaluate();
 };
 
-/**************************
- * START OF PRACTICE CODE *
- *************************/
+/******************************
+ ******************************
+ *** START OF PRACTICE CODE ***
+ ******************************
+ ******************************/
 
 class ForStmt : public Statement {
 private:
@@ -1713,6 +1733,51 @@ public:
     void evaluate();
 };
 
+/*!
+  \class StringNode
+  \brief Definition of atributes and methods of StringNode class
+  \note  NumberNode Class publicly inherits from ExpNode class
+*/
+class StringNode : public ExpNode {
+private:
+    std::string _value; //!< \brief alphanumeric value of the StringNode
+
+public:
+    /*!
+	\brief Constructor of StringNode
+	\param value: string
+	\post  A new StringNode is created with the value of the parameter
+	\note  Inline function
+*/
+    StringNode(std::string value)
+    {
+        this->_value = value;
+    }
+
+    /*!
+	\brief   Get the type of the expression: STRING
+	\return  int
+	\sa		 print
+	*/
+    int getType();
+
+    /*!
+		\brief   Print the expression
+		\return  void
+		\sa		 evaluate()
+	*/
+    void print();
+
+    /*!
+		\brief   Evaluate the expression
+		\return  string
+		\sa		 print
+	*/
+    std::string evaluateString();
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 // End of name space lp
 }
 
