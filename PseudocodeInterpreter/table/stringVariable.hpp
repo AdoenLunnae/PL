@@ -25,7 +25,7 @@ namespace lp {
   \brief Definition of atributes and methods of StringVariable class
   \note  StringVariable Class publicly inherits from Variable class
 */
-class StringVariable : public Variable {
+class StringVariable : public lp::Variable {
     /*!
 \name Private atributes of StringVariable class
 */
