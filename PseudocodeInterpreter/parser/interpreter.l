@@ -24,6 +24,8 @@
 #include "../table/table.hpp"
 
 #include "../table/numericVariable.hpp"
+#include "../table/logicalVariable.hpp"
+#include "../table/stringVariable.hpp"
 
 extern lp::Table table; //!< External Table of Symbols
 /*********************************************/
@@ -193,25 +195,25 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 		yymore();
 	}
 
-<ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]	{ /* MODIFIED in examples 5, 7, 15 */
-								  /* NEW in example 3 */
-								  /*
-									The current value of yytext
-									will be concatenated with the next character
-								  */
-									yymore();
-								}
 
-<ERROR>(.|\n)                {
-								/* NEW in example 3 */
-								/* Rewind one position */
-								yyless(yyleng-1);
+<ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]
+                {
+                    /*
+                    The current value of yytext
+                    will be concatenated with the next character
+                    */
+                    yymore();
+                }
 
-								/* Display the error message */
-								warning("Lexical error", yytext);
+<ERROR>(.|\n)   {
+                    /* Rewind one position */
+                    yyless(yyleng-1);
 
-								/* Restore the initial state */
-   								BEGIN(INITIAL);
-							}
+                    /* Display the error message */
+                    warning("Lexical error", yytext);
+
+                    /* Restore the initial state */
+                    BEGIN(INITIAL);
+                }
 %%
 

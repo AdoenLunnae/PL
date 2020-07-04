@@ -31,6 +31,8 @@
 #include "../table/table.hpp"
 #include "../table/numericVariable.hpp"
 #include "../table/logicalVariable.hpp"
+#include "../table/stringVariable.hpp"
+
 
 #include "../table/numericConstant.hpp"
 #include "../table/logicalConstant.hpp"
@@ -54,17 +56,14 @@ int yylex();
 extern int lineNumber; //!< External line counter
 
 
-/* NEW in example 15 */
 extern bool interactiveMode; //!< Control the interactive mode of execution of the interpreter
 
-/* New in example 17 */
 extern int control; //!< External: to control the interactive mode in "if" and "while" sentences
 
 
 
 
 /***********************************************************/
-/* NEW in example 2 */
 extern std::string progname; //!<  Program name
 /***********************************************************/
 
