@@ -49,7 +49,7 @@ NUMBER 	{NUMBER1}|{NUMBER2}|{NUMBER3}
 
 IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
-%x ERROR COMMENT MULTI_COMMENT STRING CHECK_INTERNAL_QUOTATION
+%x ERROR COMMENT MULTI_COMMENT STRING_STATE CHECK_INTERNAL_QUOTATION
 
 %option caseless
 
@@ -73,6 +73,48 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
 ","		{ return COMMA; }
 
+"'"     {BEGIN STRING_STATE;}
+<STRING_STATE>[^'\\]       {yymore();}
+<STRING_STATE>"\\"    {
+					yymore();
+					BEGIN CHECK_INTERNAL_QUOTATION;
+				}
+
+<STRING_STATE>"'" {
+				yytext[yyleng-1]='\0';
+                std::string aux;
+
+                for(uint i = 0; i < yyleng; i++){
+                    if(yytext[i] == '\\'){
+                        switch(yytext[i+1]){
+                            case 'n':
+                                aux.push_back('\n');
+
+                                break;
+                            case 't':
+                                aux.push_back('\t');
+
+                                break;
+                            default:
+                                aux.push_back(yytext[i+1]);
+
+                                break;
+                        }
+
+                        i++;
+                    }
+                    else
+                        aux.push_back(yytext[i]);
+            }
+
+				yylval.string = strdup(aux.c_str());
+				BEGIN 0;
+				return STRING;
+			}
+
+<CHECK_INTERNAL_QUOTATION>[^\\]     {yymore(); BEGIN STRING_STATE;}
+<CHECK_INTERNAL_QUOTATION>"/"    {yymore();}
+
 {NUMBER}	{
 				yylval.number = atof(yytext);
 				return NUMBER;
@@ -80,22 +122,6 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
 
 
-"'"     {BEGIN STRING;}
-<STRING>[^'\\]       {yymore();}
-<STRING>"\\"    {
-					yymore();
-					BEGIN CHECK_INTERNAL_QUOTATION;
-				}
-
-<STRING>"'" {
-				yytext[yyleng-1]='\0';
-				yylval.string = strdup(yytext);
-				BEGIN 0;
-				return STRING;
-			}
-
-<CHECK_INTERNAL_QUOTATION>[^\\]     {yymore(); BEGIN STRING;}
-<CHECK_INTERNAL_QUOTATION>"/"    {yymore();}
 
 "modulo"     { return MODULO; }
 "quotient"	{return QUOTIENT;}
@@ -196,8 +222,7 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 	}
 
 
-<ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]
-                {
+<ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&] {
                     /*
                     The current value of yytext
                     will be concatenated with the next character
