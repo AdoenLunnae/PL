@@ -88,7 +88,7 @@
 
 #include <cstdio>
 /*******************************************/
-/* 
+/*
   NEW in example 16
   AST class
   IMPORTANT: this file must be before init.hpp
@@ -136,7 +136,7 @@
 #include "../table/init.hpp"
 /*******************************************/
 
-/*! 
+/*!
 	\brief  Lexical or scanner function
 	\return int
 	\note   C++ requires that yylex returns an int value
@@ -152,7 +152,7 @@ extern int lineNumber; //!< External line counter
 extern bool interactiveMode; //!< Control the interactive mode of execution of the interpreter
 
 /* New in example 17 */
-extern int control; //!< External: to control the interactive mode in "if" and "while" sentences 
+extern int control; //!< External: to control the interactive mode in "if" and "while" sentences
 
 
 
@@ -169,7 +169,7 @@ extern std::string progname; //!<  Program name
     This is an array type capable of storing the information of a calling environment to be restored later.
    This information is filled by calling macro setjmp and can be restored by calling function longjmp.
 */
-jmp_buf begin; //!<  It enables recovery of runtime errors 
+jmp_buf begin; //!<  It enables recovery of runtime errors
 /*******************************************/
 
 
@@ -277,7 +277,7 @@ union YYSTYPE
 #line 139 "interpreter.y" /* yacc.c:355  */
 
   char * identifier; 				 /* NEW in example 7 */
-  double number;  
+  double number;
   bool logic;						 /* NEW in example 15 */
   char* string;
   lp::ExpNode *expNode;  			 /* NEW in example 16 */
@@ -1491,25 +1491,25 @@ yyreduce:
     {
         case 2:
 #line 215 "interpreter.y" /* yacc.c:1646  */
-    { 
-			(yyval.prog) = new lp::AST((yyvsp[0].stmts)); 
-			root = (yyval.prog); 
+    {
+			(yyval.prog) = new lp::AST((yyvsp[0].stmts));
+			root = (yyval.prog);
 		  }
 #line 1499 "interpreter.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 222 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// create a empty list of statements
-			(yyval.stmts) = new std::list<lp::Statement *>(); 
+			(yyval.stmts) = new std::list<lp::Statement *>();
 		  }
 #line 1508 "interpreter.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 228 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// copy up the list and add the stmt to it
 			(yyval.stmts) = (yyvsp[-1].stmts);
 			(yyval.stmts)->push_back((yyvsp[0].st));
@@ -1517,8 +1517,8 @@ yyreduce:
 			// Control the interative mode of execution of the interpreter
 			if (interactiveMode == true && control == 0)
  			{
-				for(std::list<lp::Statement *>::iterator it = (yyval.stmts)->begin(); 
-						it != (yyval.stmts)->end(); 
+				for(std::list<lp::Statement *>::iterator it = (yyval.stmts)->begin();
+						it != (yyval.stmts)->end();
 						it++)
 				{
 					(*it)->evaluate();
@@ -1534,12 +1534,12 @@ yyreduce:
 
   case 5:
 #line 250 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			 // just copy up the stmtlist when an error occurs
 			 (yyval.stmts) = (yyvsp[-1].stmts);
 
 			 // The previous look-ahead token ought to be discarded with `yyclearin;'
-			 yyclearin; 
+			 yyclearin;
        }
 #line 1545 "interpreter.tab.c" /* yacc.c:1646  */
     break;
@@ -1548,7 +1548,7 @@ yyreduce:
 #line 261 "interpreter.y" /* yacc.c:1646  */
     {
 		// Create a new empty statement node
-		(yyval.st) = new lp::EmptyStmt(); 
+		(yyval.st) = new lp::EmptyStmt();
 	  }
 #line 1554 "interpreter.tab.c" /* yacc.c:1646  */
     break;
@@ -1663,7 +1663,7 @@ yyreduce:
 
   case 18:
 #line 350 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			(yyval.expNode) = (yyvsp[-1].expNode);
 		}
 #line 1670 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1671,7 +1671,7 @@ yyreduce:
 
   case 19:
 #line 357 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// Create a new assignment node
 			(yyval.st) = new lp::AssignmentStmt((yyvsp[-2].identifier), (yyvsp[0].expNode));
 		}
@@ -1680,7 +1680,7 @@ yyreduce:
 
   case 20:
 #line 363 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// Create a new assignment node
 			(yyval.st) = new lp::AssignmentStmt((yyvsp[-2].identifier), (lp::AssignmentStmt *) (yyvsp[0].st));
 		}
@@ -1689,7 +1689,7 @@ yyreduce:
 
   case 21:
 #line 370 "interpreter.y" /* yacc.c:1646  */
-    {   
+    {
  			execerror("Semantic error in assignment: it is not allowed to modify a constant ", (yyvsp[-2].identifier));
 		}
 #line 1696 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1697,7 +1697,7 @@ yyreduce:
 
   case 22:
 #line 375 "interpreter.y" /* yacc.c:1646  */
-    {   
+    {
  			execerror("Semantic error in multiple assignment: it is not allowed to modify a constant ",(yyvsp[-2].identifier));
 		}
 #line 1704 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1714,7 +1714,7 @@ yyreduce:
 
   case 24:
 #line 402 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// Create a new number node
 			(yyval.expNode) = new lp::NumberNode((yyvsp[0].number));
 		}
@@ -1723,7 +1723,7 @@ yyreduce:
 
   case 25:
 #line 408 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// Create a new plus node
 			 (yyval.expNode) = new lp::PlusNode((yyvsp[-2].expNode), (yyvsp[0].expNode));
 		 }
@@ -1741,7 +1741,7 @@ yyreduce:
 
   case 27:
 #line 420 "interpreter.y" /* yacc.c:1646  */
-    { 
+    {
 			// Create a new multiplication node
 			(yyval.expNode) = new lp::MultiplicationNode((yyvsp[-2].expNode), (yyvsp[0].expNode));
 		}
@@ -1751,7 +1751,7 @@ yyreduce:
   case 28:
 #line 426 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new division node	
+		  // Create a new division node
 		  (yyval.expNode) = new lp::DivisionNode((yyvsp[-2].expNode), (yyvsp[0].expNode));
 	   }
 #line 1758 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1759,8 +1759,8 @@ yyreduce:
 
   case 29:
 #line 432 "interpreter.y" /* yacc.c:1646  */
-    { 
-		    // just copy up the expression node 
+    {
+		    // just copy up the expression node
 			(yyval.expNode) = (yyvsp[-1].expNode);
 		 }
 #line 1767 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1768,8 +1768,8 @@ yyreduce:
 
   case 30:
 #line 438 "interpreter.y" /* yacc.c:1646  */
-    { 
-		  // Create a new unary plus node	
+    {
+		  // Create a new unary plus node
   		  (yyval.expNode) = new lp::UnaryPlusNode((yyvsp[0].expNode));
 		}
 #line 1776 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1777,8 +1777,8 @@ yyreduce:
 
   case 31:
 #line 444 "interpreter.y" /* yacc.c:1646  */
-    { 
-		  // Create a new unary minus node	
+    {
+		  // Create a new unary minus node
   		  (yyval.expNode) = new lp::UnaryMinusNode((yyvsp[0].expNode));
 		}
 #line 1785 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1787,7 +1787,7 @@ yyreduce:
   case 32:
 #line 450 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new modulo node	
+		  // Create a new modulo node
 
 		  (yyval.expNode) = new lp::ModuloNode((yyvsp[-2].expNode), (yyvsp[0].expNode));
        }
@@ -1796,8 +1796,8 @@ yyreduce:
 
   case 33:
 #line 457 "interpreter.y" /* yacc.c:1646  */
-    { 
-		  // Create a new power node	
+    {
+		  // Create a new power node
   		  (yyval.expNode) = new lp::PowerNode((yyvsp[-2].expNode), (yyvsp[0].expNode));
 		}
 #line 1804 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1806,7 +1806,7 @@ yyreduce:
   case 34:
 #line 463 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new variable node	
+		  // Create a new variable node
 		  (yyval.expNode) = new lp::VariableNode((yyvsp[0].identifier));
 		}
 #line 1813 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1815,7 +1815,7 @@ yyreduce:
   case 35:
 #line 469 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new constant node	
+		  // Create a new constant node
 		  (yyval.expNode) = new lp::ConstantNode((yyvsp[0].identifier));
 
 		}
@@ -1828,14 +1828,14 @@ yyreduce:
 			// Get the identifier in the table of symbols as Builtin
 			lp::Builtin *f= (lp::Builtin *) table.getSymbol((yyvsp[-3].identifier));
 
-			// Check the number of parameters 
+			// Check the number of parameters
 			if (f->getNParameters() ==  (int) (yyvsp[-1].parameters)->size())
 			{
 				switch(f->getNParameters())
 				{
 					case 0:
 						{
-							// Create a new Builtin Function with 0 parameters node	
+							// Create a new Builtin Function with 0 parameters node
 							(yyval.expNode) = new lp::BuiltinFunctionNode_0((yyvsp[-3].identifier));
 						}
 						break;
@@ -1845,7 +1845,7 @@ yyreduce:
 							// Get the expression from the list of expressions
 							lp::ExpNode *e = (yyvsp[-1].parameters)->front();
 
-							// Create a new Builtin Function with 1 parameter node	
+							// Create a new Builtin Function with 1 parameter node
 							(yyval.expNode) = new lp::BuiltinFunctionNode_1((yyvsp[-3].identifier),e);
 						}
 						break;
@@ -1857,14 +1857,14 @@ yyreduce:
 							(yyvsp[-1].parameters)->pop_front();
 							lp::ExpNode *e2 = (yyvsp[-1].parameters)->front();
 
-							// Create a new Builtin Function with 2 parameters node	
+							// Create a new Builtin Function with 2 parameters node
 							(yyval.expNode) = new lp::BuiltinFunctionNode_2((yyvsp[-3].identifier),e1,e2);
 						}
 						break;
 
 					default:
 				  			 execerror("Syntax error: too many parameters for function ", (yyvsp[-3].identifier));
-				} 
+				}
 			}
 			else
 	  			 execerror("Syntax error: incompatible number of parameters for function", (yyvsp[-3].identifier));
@@ -1875,7 +1875,7 @@ yyreduce:
   case 37:
 #line 523 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "greater than" node	
+		  // Create a new "greater than" node
  			(yyval.expNode) = new lp::GreaterThanNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1882 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1884,7 +1884,7 @@ yyreduce:
   case 38:
 #line 529 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "greater or equal" node	
+		  // Create a new "greater or equal" node
  			(yyval.expNode) = new lp::GreaterOrEqualNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1891 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1893,7 +1893,7 @@ yyreduce:
   case 39:
 #line 535 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "less than" node	
+		  // Create a new "less than" node
  			(yyval.expNode) = new lp::LessThanNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1900 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1902,7 +1902,7 @@ yyreduce:
   case 40:
 #line 541 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "less or equal" node	
+		  // Create a new "less or equal" node
  			(yyval.expNode) = new lp::LessOrEqualNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1909 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1911,7 +1911,7 @@ yyreduce:
   case 41:
 #line 547 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "equal" node	
+		  // Create a new "equal" node
  			(yyval.expNode) = new lp::EqualNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1918 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1920,7 +1920,7 @@ yyreduce:
   case 42:
 #line 553 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "not equal" node	
+		  // Create a new "not equal" node
  			(yyval.expNode) = new lp::NotEqualNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1927 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1929,7 +1929,7 @@ yyreduce:
   case 43:
 #line 559 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "logic and" node	
+		  // Create a new "logic and" node
  			(yyval.expNode) = new lp::AndNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1936 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1938,7 +1938,7 @@ yyreduce:
   case 44:
 #line 565 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "logic or" node	
+		  // Create a new "logic or" node
  			(yyval.expNode) = new lp::OrNode((yyvsp[-2].expNode),(yyvsp[0].expNode));
 		}
 #line 1945 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1947,7 +1947,7 @@ yyreduce:
   case 45:
 #line 571 "interpreter.y" /* yacc.c:1646  */
     {
-		  // Create a new "logic negation" node	
+		  // Create a new "logic negation" node
  			(yyval.expNode) = new lp::NotNode((yyvsp[0].expNode));
 		}
 #line 1954 "interpreter.tab.c" /* yacc.c:1646  */
@@ -1957,7 +1957,7 @@ yyreduce:
 #line 580 "interpreter.y" /* yacc.c:1646  */
     {
 			    // Create a new list STL
-				(yyval.parameters) = new std::list<lp::ExpNode *>(); 
+				(yyval.parameters) = new std::list<lp::ExpNode *>();
 			}
 #line 1963 "interpreter.tab.c" /* yacc.c:1646  */
     break;
@@ -1977,7 +1977,7 @@ yyreduce:
 #line 596 "interpreter.y" /* yacc.c:1646  */
     {
 			    // Create a new list STL
-				(yyval.parameters) = new std::list<lp::ExpNode *>(); 
+				(yyval.parameters) = new std::list<lp::ExpNode *>();
 			}
 #line 1983 "interpreter.tab.c" /* yacc.c:1646  */
     break;

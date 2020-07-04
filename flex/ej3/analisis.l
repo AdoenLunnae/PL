@@ -42,7 +42,7 @@ NUMBER -?{SCI_NOTATION}|{DECIMAL}
 <STRING>"\\"    {yymore(); BEGIN CHECK_INTERNAL_QUOTATION;}
 <STRING>"'"     {yytext[yyleng-1]='\0'; BEGIN 0; fprintf(yyout, "\nCadena: %s --> token %d\n", yytext, CADENA);}
 <CHECK_INTERNAL_QUOTATION>[^\\]     {yymore(); BEGIN STRING;}
-<CHECK_INTERNAL_QUOTATION>"/"    {yymore();}   
+<CHECK_INTERNAL_QUOTATION>"/"    {yymore();}
 
 inicio  {fprintf(yyout, "\nPalabra reservada: %s --> token %d\n", yytext, INICIO);}
 fin    {fprintf(yyout, "\nPalabra reservada: %s --> token %d\n", yytext, FIN);}

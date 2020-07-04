@@ -54,7 +54,7 @@ FILE_PATTERNS          =  *.y *.l *.hpp *.cpp
 
 EXTENSION_MAPPING      = y=C l=C
 
-# If the ENABLE_PREPROCESSING tag is set to YES, 
+# If the ENABLE_PREPROCESSING tag is set to YES,
 # doxygen will evaluate all C-preprocessor directives found in the sources and include files.
 # The default value is: YES.
 

@@ -16,9 +16,9 @@ inicio # El programa calcula el n-esimo numero de fibonacci iterativamente
 		para i desde 1 hasta n paso 1
 			anterior_2 := anterior ;
 			anterior := actual ;
-			actual := anterior + anterior_2 ; 
+			actual := anterior + anterior_2 ;
 		fin_para
 		escribir ( actual );
 	fin_si
 fin
-	
+

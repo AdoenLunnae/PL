@@ -1,6 +1,6 @@
-/*! 
+/*!
   \file error.cpp
-  \brief Code of error recovery functions 
+  \brief Code of error recovery functions
 */
 
 
@@ -24,7 +24,7 @@ extern int lineNumber; //!< // Reference to line counter
 
 extern std::string progname; //!<  Reference to program name
 
-extern jmp_buf begin; //!< Used for error recovery 
+extern jmp_buf begin; //!< Used for error recovery
 
 // NEW
 extern int errno; //!<  ReferenceReference to the global variable that controls errors in the mathematical code
@@ -32,12 +32,12 @@ extern int errno; //!<  ReferenceReference to the global variable that controls 
 
 void warning(std::string errorMessage1,std::string errorMessage2)
 {
-  std::cerr << IGREEN; 
+  std::cerr << IGREEN;
   std::cerr << " Program: " << progname << std::endl;
-  std::cerr << BIRED; 
-  std::cerr << " Error line " << lineNumber 
+  std::cerr << BIRED;
+  std::cerr << " Error line " << lineNumber
             << " --> " << errorMessage1 << std::endl;
-  std::cerr << RESET; 
+  std::cerr << RESET;
 
 
   if (errorMessage2.compare("")!=0)
@@ -52,12 +52,12 @@ void yyerror(std::string errorMessage)
 
 void execerror(std::string errorMessage1,std::string errorMessage2)
 {
- warning(errorMessage1,errorMessage2); 
+ warning(errorMessage1,errorMessage2);
 
  longjmp(begin,0); /* return to a viable state */
 }
 
-void fpecatch(int signum)     
+void fpecatch(int signum)
 {
  execerror("Run time","floating point error");
 }
@@ -71,7 +71,7 @@ double errcheck(double d, std::string s)
     {
      errno=0;
      std::string msg("Runtime error --> argument out of domain");
- 
+
      std::cout << msg << std::endl;
      execerror(s,msg);
     }

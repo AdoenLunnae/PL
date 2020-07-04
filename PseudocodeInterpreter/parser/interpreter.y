@@ -1,4 +1,4 @@
-/*! 
+/*!
   \file interpreter.y
   \brief Grammar file
 */
@@ -29,7 +29,7 @@
 
 #include <cstdio>
 /*******************************************/
-/* 
+/*
   NEW in example 16
   AST class
   IMPORTANT: this file must be before init.hpp
@@ -77,7 +77,7 @@
 #include "../table/init.hpp"
 /*******************************************/
 
-/*! 
+/*!
 	\brief  Lexical or scanner function
 	\return int
 	\note   C++ requires that yylex returns an int value
@@ -93,7 +93,7 @@ extern int lineNumber; //!< External line counter
 extern bool interactiveMode; //!< Control the interactive mode of execution of the interpreter
 
 /* New in example 17 */
-extern int control; //!< External: to control the interactive mode in "if" and "while" sentences 
+extern int control; //!< External: to control the interactive mode in "if" and "while" sentences
 
 
 
@@ -110,7 +110,7 @@ extern std::string progname; //!<  Program name
     This is an array type capable of storing the information of a calling environment to be restored later.
    This information is filled by calling macro setjmp and can be restored by calling function longjmp.
 */
-jmp_buf begin; //!<  It enables recovery of runtime errors 
+jmp_buf begin; //!<  It enables recovery of runtime errors
 /*******************************************/
 
 
@@ -138,7 +138,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /* NEW in example 4 */
 %union {
   char * identifier; 				 /* NEW in example 7 */
-  double number;  
+  double number;
   bool logic;						 /* NEW in example 15 */
   char* string;
   lp::ExpNode *expNode;  			 /* NEW in example 16 */
@@ -161,7 +161,7 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 %type <prog> program
 
-// Defined token 
+// Defined token
 
 %token SEMICOLON
 
@@ -193,16 +193,16 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 
 /*******************************************************/
 
-%left PLUS MINUS 
+%left PLUS MINUS
 
-%left MULTIPLICATION DIVISION MODULO QUOTIENT 
+%left MULTIPLICATION DIVISION MODULO QUOTIENT
 
 %left LPAREN RPAREN
 
 %token PRINT
 %nonassoc  UNARY
 
-// Maximum precedence 
+// Maximum precedence
 %right POWER
 
 
@@ -212,20 +212,20 @@ extern lp::AST *root; //!< External root of the abstract syntax tree AST
 /* MODIFIED  Grammar in example 16 */
 
 program : stmtlist
-		  { 
-			$$ = new lp::AST($1); 
-			root = $$; 
+		  {
+			$$ = new lp::AST($1);
+			root = $$;
 		  }
 ;
 
 stmtlist:  /* empty: epsilon rule */
-		  { 
+		  {
 			// create a empty list of statements
-			$$ = new std::list<lp::Statement *>(); 
-		  }  
+			$$ = new std::list<lp::Statement *>();
+		  }
 
-        | stmtlist stmt 
-		  { 
+        | stmtlist stmt
+		  {
 			// copy up the list and add the stmt to it
 			$$ = $1;
 			$$->push_back($2);
@@ -233,8 +233,8 @@ stmtlist:  /* empty: epsilon rule */
 			// Control the interative mode of execution of the interpreter
 			if (interactiveMode == true && control == 0)
  			{
-				for(std::list<lp::Statement *>::iterator it = $$->begin(); 
-						it != $$->end(); 
+				for(std::list<lp::Statement *>::iterator it = $$->begin();
+						it != $$->end();
 						it++)
 				{
 					(*it)->evaluate();
@@ -246,21 +246,21 @@ stmtlist:  /* empty: epsilon rule */
 			}
 		}
 
-    | stmtlist error 
-      { 
+    | stmtlist error
+      {
 			 // just copy up the stmtlist when an error occurs
 			 $$ = $1;
 
 			 // The previous look-ahead token ought to be discarded with `yyclearin;'
-			 yyclearin; 
-       } 
+			 yyclearin;
+       }
 ;
- 
+
 
 stmt: SEMICOLON  /* Empty statement: ";" */
 	  {
 		// Create a new empty statement node
-		$$ = new lp::EmptyStmt(); 
+		$$ = new lp::EmptyStmt();
 	  }
 	| asgn  SEMICOLON
 	  {
@@ -268,13 +268,13 @@ stmt: SEMICOLON  /* Empty statement: ";" */
 		// $$ = $1;
 	  }
 	/*  NEW in example 17 */
-	| if 
+	| if
 	 {
 		// Default action
 		// $$ = $1;
 	 }
 	/*  NEW in example 17 */
-	| while 
+	| while
 	 {
 		// Default action
 		// $$ = $1;
@@ -300,7 +300,7 @@ controlSymbol:  /* Epsilon rule*/
 
 	/*  NEW in example 17 */
 if:	/* Simple conditional statement */
-	IF controlSymbol cond THEN stmt ENDIF 
+	IF controlSymbol cond THEN stmt ENDIF
     {
 		// Create a new if statement node
 		$$ = new lp::IfStmt($3, $5);
@@ -310,7 +310,7 @@ if:	/* Simple conditional statement */
 	}
 
 	/* Compound conditional statement */
-	| IF controlSymbol cond THEN stmt ELSE stmt ENDIF 
+	| IF controlSymbol cond THEN stmt ELSE stmt ENDIF
 	 {
 		// Create a new if statement node
 		$$ = new lp::IfStmt($3, $5, $7);
@@ -347,65 +347,65 @@ for:	FOR controlSymbol VARIABLE FROM exp TO exp DO stmt ENDFOR
 
 	/*  NEW in example 17 */
 cond: 	LPAREN exp RPAREN
-		{ 
+		{
 			$$ = $2;
 		}
 ;
 
 
-asgn:   VARIABLE ASSIGNMENT exp 
-		{ 
+asgn:   VARIABLE ASSIGNMENT exp
+		{
 			// Create a new assignment node
 			$$ = new lp::AssignmentStmt($1, $3);
 		}
 
-	|  VARIABLE ASSIGNMENT asgn 
-		{ 
+	|  VARIABLE ASSIGNMENT asgn
+		{
 			// Create a new assignment node
 			$$ = new lp::AssignmentStmt($1, (lp::AssignmentStmt *) $3);
 		}
 
-	   /* NEW in example 11 */ 
-	| CONSTANT ASSIGNMENT exp 
-		{   
+	   /* NEW in example 11 */
+	| CONSTANT ASSIGNMENT exp
+		{
  			execerror("Semantic error in assignment: it is not allowed to modify a constant ", $1);
 		}
-	   /* NEW in example 11 */ 
-	| CONSTANT ASSIGNMENT asgn 
-		{   
+	   /* NEW in example 11 */
+	| CONSTANT ASSIGNMENT asgn
+		{
  			execerror("Semantic error in multiple assignment: it is not allowed to modify a constant ",$1);
 		}
 ;
 
-print:  PRINT exp 
+print:  PRINT exp
 		{
 			// Create a new print node
 			 $$ = new lp::PrintStmt($2);
 		}
-;	
+;
 
 /*
-read:  READ LPAREN VARIABLE RPAREN  
+read:  READ LPAREN VARIABLE RPAREN
 		{
 			// Create a new read node
 			 $$ = new lp::ReadStmt($3);
 		}
 
-	| READ LPAREN CONSTANT RPAREN  
-		{   
+	| READ LPAREN CONSTANT RPAREN
+		{
  			execerror("Semantic error in \"read statement\": it is not allowed to modify a constant ",$3);
 		}
 ;
 */
 
-exp:	NUMBER 
-		{ 
+exp:	NUMBER
+		{
 			// Create a new number node
 			$$ = new lp::NumberNode($1);
 		}
 
-	| 	exp PLUS exp 
-		{ 
+	| 	exp PLUS exp
+		{
 			// Create a new plus node
 			 $$ = new lp::PlusNode($1, $3);
 		 }
@@ -416,58 +416,58 @@ exp:	NUMBER
 			$$ = new lp::MinusNode($1, $3);
 		}
 
-	| 	exp MULTIPLICATION exp 
-		{ 
+	| 	exp MULTIPLICATION exp
+		{
 			// Create a new multiplication node
 			$$ = new lp::MultiplicationNode($1, $3);
 		}
 
 	| 	exp DIVISION exp
 		{
-		  // Create a new division node	
+		  // Create a new division node
 		  $$ = new lp::DivisionNode($1, $3);
 	   }
 
 	| 	LPAREN exp RPAREN
-       	{ 
-		    // just copy up the expression node 
+       	{
+		    // just copy up the expression node
 			$$ = $2;
 		 }
 
   	| 	PLUS exp %prec UNARY
-		{ 
-		  // Create a new unary plus node	
+		{
+		  // Create a new unary plus node
   		  $$ = new lp::UnaryPlusNode($2);
 		}
 
 	| 	MINUS exp %prec UNARY
-		{ 
-		  // Create a new unary minus node	
+		{
+		  // Create a new unary minus node
   		  $$ = new lp::UnaryMinusNode($2);
 		}
 
-	|	exp MODULO exp 
+	|	exp MODULO exp
 		{
-		  // Create a new modulo node	
+		  // Create a new modulo node
 
 		  $$ = new lp::ModuloNode($1, $3);
        }
 
-	|	exp POWER exp 
-     	{ 
-		  // Create a new power node	
+	|	exp POWER exp
+     	{
+		  // Create a new power node
   		  $$ = new lp::PowerNode($1, $3);
 		}
 
 	 | VARIABLE
 		{
-		  // Create a new variable node	
+		  // Create a new variable node
 		  $$ = new lp::VariableNode($1);
 		}
 
 	 | CONSTANT
 		{
-		  // Create a new constant node	
+		  // Create a new constant node
 		  $$ = new lp::ConstantNode($1);
 
 		}
@@ -477,14 +477,14 @@ exp:	NUMBER
 			// Get the identifier in the table of symbols as Builtin
 			lp::Builtin *f= (lp::Builtin *) table.getSymbol($1);
 
-			// Check the number of parameters 
+			// Check the number of parameters
 			if (f->getNParameters() ==  (int) $3->size())
 			{
 				switch(f->getNParameters())
 				{
 					case 0:
 						{
-							// Create a new Builtin Function with 0 parameters node	
+							// Create a new Builtin Function with 0 parameters node
 							$$ = new lp::BuiltinFunctionNode_0($1);
 						}
 						break;
@@ -494,7 +494,7 @@ exp:	NUMBER
 							// Get the expression from the list of expressions
 							lp::ExpNode *e = $3->front();
 
-							// Create a new Builtin Function with 1 parameter node	
+							// Create a new Builtin Function with 1 parameter node
 							$$ = new lp::BuiltinFunctionNode_1($1,e);
 						}
 						break;
@@ -506,14 +506,14 @@ exp:	NUMBER
 							$3->pop_front();
 							lp::ExpNode *e2 = $3->front();
 
-							// Create a new Builtin Function with 2 parameters node	
+							// Create a new Builtin Function with 2 parameters node
 							$$ = new lp::BuiltinFunctionNode_2($1,e1,e2);
 						}
 						break;
 
 					default:
 				  			 execerror("Syntax error: too many parameters for function ", $1);
-				} 
+				}
 			}
 			else
 	  			 execerror("Syntax error: incompatible number of parameters for function", $1);
@@ -521,65 +521,65 @@ exp:	NUMBER
 
 	| exp GREATER_THAN exp
 	 	{
-		  // Create a new "greater than" node	
+		  // Create a new "greater than" node
  			$$ = new lp::GreaterThanNode($1,$3);
 		}
 
-	| exp GREATER_OR_EQUAL exp 
+	| exp GREATER_OR_EQUAL exp
 	 	{
-		  // Create a new "greater or equal" node	
+		  // Create a new "greater or equal" node
  			$$ = new lp::GreaterOrEqualNode($1,$3);
 		}
 
-	| exp LESS_THAN exp 	
+	| exp LESS_THAN exp
 	 	{
-		  // Create a new "less than" node	
+		  // Create a new "less than" node
  			$$ = new lp::LessThanNode($1,$3);
 		}
 
-	| exp LESS_OR_EQUAL exp 
+	| exp LESS_OR_EQUAL exp
 	 	{
-		  // Create a new "less or equal" node	
+		  // Create a new "less or equal" node
  			$$ = new lp::LessOrEqualNode($1,$3);
 		}
 
-	| exp EQUAL exp 	
+	| exp EQUAL exp
 	 	{
-		  // Create a new "equal" node	
+		  // Create a new "equal" node
  			$$ = new lp::EqualNode($1,$3);
 		}
 
-    | exp NOT_EQUAL exp 	
+    | exp NOT_EQUAL exp
 	 	{
-		  // Create a new "not equal" node	
+		  // Create a new "not equal" node
  			$$ = new lp::NotEqualNode($1,$3);
 		}
 
-    | exp AND exp 
+    | exp AND exp
 	 	{
-		  // Create a new "logic and" node	
+		  // Create a new "logic and" node
  			$$ = new lp::AndNode($1,$3);
 		}
 
-    | exp OR exp 
+    | exp OR exp
 	 	{
-		  // Create a new "logic or" node	
+		  // Create a new "logic or" node
  			$$ = new lp::OrNode($1,$3);
 		}
 
-    | NOT exp 
+    | NOT exp
 	 	{
-		  // Create a new "logic negation" node	
+		  // Create a new "logic negation" node
  			$$ = new lp::NotNode($2);
 		}
 ;
 
 
-listOfExp: 
+listOfExp:
 			/* Empty list of numeric expressions */
 			{
 			    // Create a new list STL
-				$$ = new std::list<lp::ExpNode *>(); 
+				$$ = new std::list<lp::ExpNode *>();
 			}
 
 	|  exp restOfListOfExp
@@ -595,7 +595,7 @@ restOfListOfExp:
 			/* Empty list of numeric expressions */
 			{
 			    // Create a new list STL
-				$$ = new std::list<lp::ExpNode *>(); 
+				$$ = new std::list<lp::ExpNode *>();
 			}
 
 		|	COMMA exp restOfListOfExp

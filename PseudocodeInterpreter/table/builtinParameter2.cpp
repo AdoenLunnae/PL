@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    builtinParameter2.cpp
 	\brief   Code of some functions of BuiltinParameter2 class
-	\author 
+	\author
 	\date    2017-10-19
 	\version 1.0
 */
@@ -16,14 +16,14 @@
 
 
 /*
- Definitions of the read and write functions of the BuiltinParameter2 class 
+ Definitions of the read and write functions of the BuiltinParameter2 class
 */
 
 
 lp::BuiltinParameter2 &lp::BuiltinParameter2::operator=(const lp::BuiltinParameter2 &f)
   {
  	// Check that is not the current object
-		if (this != &f) 
+		if (this != &f)
 		{
 			// Inherited methods
 			this->setName(f.getName());

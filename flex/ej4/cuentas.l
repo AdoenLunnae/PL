@@ -37,7 +37,7 @@ ACCOUNT {NUMBER}{NUMBER}{NUMBER}{NUMBER}{NUMBER}{NUMBER}{NUMBER}{NUMBER}{NUMBER}
     else{
         keepComparing = 0;
     };
-    BEGIN(SCAN_XY);    
+    BEGIN(SCAN_XY);
 }
 <SCAN_COUNTRY>.    {printf("Código de país inválido"); BEGIN(FINISH_LINE);}
 
@@ -99,14 +99,14 @@ int main(int argc, char **argv)
                 yylex();
                 printf("Número total de cuentas: %d\n", countTotal);
             }break;
-            
+
             case 3:
             {
                 compCountry=1;
                 strncpy(targetCountry, argv[2], 20);
-                
+
                 yylex();
-                
+
                 printf("Número total de cuentas de %s: %d\n", targetCountry, countCountry);
             }break;
 
@@ -116,11 +116,11 @@ int main(int argc, char **argv)
                 compBank=1;
                 strncpy(targetCountry, argv[2], 20);
                 strncpy(targetBank, argv[3], 20);
-                
+
                 yylex();
 
                 printf("Número total de cuentas de %s %s: %d\n", targetCountry, targetBank, countBank);
-            
+
             }break;
 
             case 5:

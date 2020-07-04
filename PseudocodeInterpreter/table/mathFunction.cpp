@@ -1,6 +1,6 @@
-/*! 
+/*!
   \file mathFunction.cpp
-  \brief Code of mathematical functions 
+  \brief Code of mathematical functions
 */
 
 

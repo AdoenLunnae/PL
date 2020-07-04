@@ -1,7 +1,7 @@
-# Si se desea generar ejemplo0.exe entonces teclear 
+# Si se desea generar ejemplo0.exe entonces teclear
 #  make
 #
-# Si se desea generar otro "ejemplo" entonces teclear 
+# Si se desea generar otro "ejemplo" entonces teclear
 #            make NAME=ejemplo
 
 NAME = ejemplo0
@@ -16,9 +16,9 @@ NAME = ejemplo0
 CFLAGS = -c -g -Wall -ansi -O2 -Wno-unused-function  -Wno-sign-compare -Wno-implicit-function-declaration
 
 # Directive for flex's library
-LFLAGS = -lfl 
+LFLAGS = -lfl
 
-# Predefined macros 
+# Predefined macros
 #
 # $@: name of the target
 # $^: all the dependencies
@@ -35,7 +35,7 @@ $(NAME).o: lex.yy.c
 	@echo "Compiling" $< "and generating" $@
 	@gcc $(CFLAGS) $< -o $@
 	@echo "--> Deleting the auxilary file: lex.yy.c"
-	@rm -f lex.yy.c 
+	@rm -f lex.yy.c
 
 lex.yy.c: $(NAME).l
 	@echo "Generating" $@

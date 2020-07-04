@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    builtinParameter0.cpp
 	\brief   Code of some functions of BuiltinParameter0 class
-	\author 
+	\author
 	\date    2017-10-19
 	\version 1.0
 */
@@ -18,7 +18,7 @@
 lp::BuiltinParameter0 &lp::BuiltinParameter0::operator=(const lp::BuiltinParameter0 &f)
   {
  	// Check that is not the current object
-		if (this != &f) 
+		if (this != &f)
 		{
 			// Inherited methods
 			this->setName(f.getName());

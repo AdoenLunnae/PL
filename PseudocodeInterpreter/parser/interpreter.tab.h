@@ -104,7 +104,7 @@ union YYSTYPE
 #line 139 "interpreter.y" /* yacc.c:1909  */
 
   char * identifier; 				 /* NEW in example 7 */
-  double number;  
+  double number;
   bool logic;						 /* NEW in example 15 */
   char* string;
   lp::ExpNode *expNode;  			 /* NEW in example 16 */

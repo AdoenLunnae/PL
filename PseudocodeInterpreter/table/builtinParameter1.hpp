@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    builtinParameter1.hpp
 	\brief   Declaration of BuiltinParameter1 class
-	\author  
+	\author
 	\date    2017-12-7
 	\version 1.0
 */
@@ -14,7 +14,7 @@
 
 #include "builtin.hpp"
 
-/*!	
+/*!
 	\namespace lp
 	\brief Name space for the subject Language Processors
 */
@@ -26,30 +26,30 @@ typedef double (*TypePointerDoubleFunction_1)(double x);
 
 
 
-/*!	
+/*!
   \class BuiltinParameter1
   \brief Definition of atributes and methods of BuiltinParameter1 class
   \note  BuiltinParameter1 Class publicly inherits from Constant class
 */
 class BuiltinParameter1:public lp::Builtin
 {
-/*!		
+/*!
 \name Private atributes of BuiltinParameter1 class
 */
 	private:
-        lp::TypePointerDoubleFunction_1 _function; //!< \brief function of the BuiltinParameter1 
+        lp::TypePointerDoubleFunction_1 _function; //!< \brief function of the BuiltinParameter1
 
-/*!		
+/*!
 \name Public methods of BuiltinParameter1 class
 */
 	public:
 
-/*!	
+/*!
 	\name Constructors
 */
-		
-/*!		
-	\brief Constructor 
+
+/*!
+	\brief Constructor
 	\note  Inline function that uses Constant's constructor as members initializer
 	\param name: name of the BuiltinParameter1
 	\param token: token of the BuiltinParameter1
@@ -59,16 +59,16 @@ class BuiltinParameter1:public lp::Builtin
 	\post  A new BuiltinParameter1 is created with the functions of the parameters
 	\sa    setFunction
 */
-	inline BuiltinParameter1(std::string name, 
-							  int token, 
+	inline BuiltinParameter1(std::string name,
+							  int token,
 							  int nParameters,
-						      lp::TypePointerDoubleFunction_1 function): 
+						      lp::TypePointerDoubleFunction_1 function):
 							  Builtin(name,token,nParameters)
 	{
 		this->setFunction(function);
 	}
-		
-/*!		
+
+/*!
 	\brief Copy constructor
 	\note  Inline function
 	\param f: object of BuiltinParameter1 class
@@ -84,17 +84,17 @@ class BuiltinParameter1:public lp::Builtin
 		this->setToken(f.getToken());
 
 		this->setNParameters(f.getNParameters());
-		
+
 		// Own method
 		this->setFunction(f.getFunction());
 	}
 
 
-/*!	
+/*!
 	\name Observer
 */
-	
-/*!	
+
+/*!
 	\brief  Public method that returns the function of the BuiltinParameter1
 	\note   Función inline
 	\pre    None
@@ -109,16 +109,16 @@ class BuiltinParameter1:public lp::Builtin
 
 
 
-/*!	
+/*!
 	\name Modifier
 */
-		
-/*!	
+
+/*!
 	\brief   This functions modifies the function of the BuiltinParameter1
 	\note    Inline function
 	\param   function: new function of the BuiltinParameter1
 	\pre     None
-	\post    The function of the BuiltinParameter1 is equal to the parameter 
+	\post    The function of the BuiltinParameter1 is equal to the parameter
 	\return  void
 	\sa 	 setFunction
 */
@@ -128,19 +128,19 @@ class BuiltinParameter1:public lp::Builtin
 	}
 
 
-/*!	
+/*!
 	\name Operators
 */
-	
-/*!		
+
+/*!
 	\brief  Assignment Operator
 	\param  f: objectoof BuiltinParameter1 class
 	\post   The atributes of this object are equal to the atributes of the parameter
 	\return Reference to this object
 */
 	BuiltinParameter1 &operator=(const BuiltinParameter1 &f);
-	
-	
+
+
 // End of BuiltinParameter1 class
 };
 

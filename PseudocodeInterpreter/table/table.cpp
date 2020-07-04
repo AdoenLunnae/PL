@@ -1,8 +1,8 @@
-/*!	
+/*!
 
 	\file   table.cpp
 	\brief   Code of some functions of Table class
-	\author  
+	\author
 	\date    2017-12-13
 	\version 1.0
 */
@@ -17,8 +17,8 @@
 
 
 
-bool lp::Table::lookupSymbol(const std::string & name) const 
-{		
+bool lp::Table::lookupSymbol(const std::string & name) const
+{
 	if (this->_table.find(name) !=  this->_table.end())
 		return true;
 	else

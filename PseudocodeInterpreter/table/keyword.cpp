@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    keyword.cpp
 	\brief   Code of some functions of Keyword class
-	\author 
+	\author
 	\date    2017-10-19
 	\version 1.0
 */
@@ -20,7 +20,7 @@
 lp::Keyword &lp::Keyword::operator=(const lp::Keyword &k)
   {
  	// Check that is not the current object
-		if (this != &k) 
+		if (this != &k)
 		{
 			// Inherited methods
 			this->setName(k.getName());
@@ -33,10 +33,10 @@ lp::Keyword &lp::Keyword::operator=(const lp::Keyword &k)
   }
 
 
-/*	
+/*
   	I/O Functions
 */
-	
+
 
 void lp::Keyword::read()
 {
@@ -46,8 +46,8 @@ void lp::Keyword::read()
 
    std::cout << "Token of the Keyword: ";
    std::cin >> this->_token;
-   // The \n character is read 
-   std::cin.ignore(); 
+   // The \n character is read
+   std::cin.ignore();
 
 }
 

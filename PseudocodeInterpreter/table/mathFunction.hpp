@@ -1,6 +1,6 @@
-/*! 
+/*!
   \file mathFunction.hpp
-  \brief Prototypes of mathematical functions 
+  \brief Prototypes of mathematical functions
 */
 
 #ifndef _MATHFUNCTION_HPP_
@@ -8,7 +8,7 @@
 
 #include <string>
 
-/*!	
+/*!
 	\brief   Compute the neperian logarithm of a real number
 	\note    Check first if there is an error in the argument.
 	\param	 x: double
@@ -17,7 +17,7 @@
 */
 double Log(double x);
 
-/*!	
+/*!
 	\brief   Compute the decimal logarithm of a real number
 	\note    Check first if there is an error in the argument.
 	\param	 x: double
@@ -26,7 +26,7 @@ double Log(double x);
 */
 double Log10(double x);
 
-/*!	
+/*!
 	\brief   Compute the exponential of a real number
 	\note    Check first if there is an error in the argument.
 	\param	 x: double
@@ -35,7 +35,7 @@ double Log10(double x);
 */
 double Exp(double x);
 
-/*!	
+/*!
 	\brief   Compute the square root of a real number
 	\note    Check first if there is an error in the argument.
 	\param	 x: double
@@ -45,19 +45,19 @@ double Exp(double x);
 double Sqrt(double x);
 
 
-/*!	
+/*!
 	\brief   Compute the integer part a real number
 	\param	 x: double
 	\return  (double) (long) x;
-	\sa		 
+	\sa
 */
 double integer(double x);
 
 /////////////////////////////////
-/*!	
+/*!
 	\brief   Compute a random number
 	\return  (double) (long) rand() / RAND_MAX;
-	\sa		 
+	\sa
 */
 double Random();
 
@@ -65,12 +65,12 @@ double Random();
 
 ////////////////////////////////
 
-/*!	
-	\brief   Compute the atan(x/y) 
+/*!
+	\brief   Compute the atan(x/y)
 	\param	 x: double
 	\param	 y: double
 	\return  atan(x/y)
-	\sa		 
+	\sa
 */
 double Atan2(double x, double y);
 

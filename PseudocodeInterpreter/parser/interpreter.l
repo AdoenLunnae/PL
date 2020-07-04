@@ -1,4 +1,4 @@
-/*! 
+/*!
   \file interpreter.l
   \brief Lexical or scanner file
 */
@@ -35,7 +35,7 @@ extern int lineNumber; //!< External line counter
 
 /*! \name REGULAR DEFINITIONS  */
 
-DIGIT  [0-9] 
+DIGIT  [0-9]
 
 LETTER [a-zA-Z]
 
@@ -43,7 +43,7 @@ NUMBER1 {DIGIT}+\.?
 NUMBER2 {DIGIT}*\.{DIGIT}+
 NUMBER3 {NUMBER2}[eE][+\-]{DIGIT}+
 
-NUMBER 	{NUMBER1}|{NUMBER2}|{NUMBER3} 
+NUMBER 	{NUMBER1}|{NUMBER2}|{NUMBER3}
 
 IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
@@ -72,8 +72,8 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 ","		{ return COMMA; }
 
 {NUMBER}	{
-				yylval.number = atof(yytext); 
-				return NUMBER; 
+				yylval.number = atof(yytext);
+				return NUMBER;
 			}
 
 
@@ -81,48 +81,48 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 "'"     {BEGIN STRING;}
 <STRING>[^'\\]       {yymore();}
 <STRING>"\\"    {
-					yymore(); 
+					yymore();
 					BEGIN CHECK_INTERNAL_QUOTATION;
 				}
 
-<STRING>"'" {	
-				yytext[yyleng-1]='\0'; 
+<STRING>"'" {
+				yytext[yyleng-1]='\0';
 				yylval.string = strdup(yytext);
 				BEGIN 0;
-				return STRING;	
+				return STRING;
 			}
-				
+
 <CHECK_INTERNAL_QUOTATION>[^\\]     {yymore(); BEGIN STRING;}
 <CHECK_INTERNAL_QUOTATION>"/"    {yymore();}
 
-"modulo"     { return MODULO; }			
+"modulo"     { return MODULO; }
 "quotient"	{return QUOTIENT;}
 
-"-"		{ return MINUS;  } 			
-"+"		{ return PLUS;   } 			
+"-"		{ return MINUS;  }
+"+"		{ return PLUS;   }
 
-"*"	    { return MULTIPLICATION; } 	
-"/"     { return DIVISION; } 		
+"*"	    { return MULTIPLICATION; }
+"/"     { return DIVISION; }
 
 "**"	{return POWER;}
 
-"("     { return LPAREN; } 			
-")"	    { return RPAREN; } 			
+"("     { return LPAREN; }
+")"	    { return RPAREN; }
 
 
-":=" 	{ return ASSIGNMENT; }		
+":=" 	{ return ASSIGNMENT; }
 
 
-"="		{ return EQUAL; }			
-"<>"	{ return NOT_EQUAL; }		
+"="		{ return EQUAL; }
+"<>"	{ return NOT_EQUAL; }
 ">="	{ return GREATER_OR_EQUAL; }
-"<="	{ return LESS_OR_EQUAL; }	
-">"		{ return GREATER_THAN; }	
-"<"		{ return LESS_THAN; }		
+"<="	{ return LESS_OR_EQUAL; }
+">"		{ return GREATER_THAN; }
+"<"		{ return LESS_THAN; }
 
-"not"	{ return NOT; }				
-"or"	{ return OR; }				
-"and"	{ return AND; }				
+"not"	{ return NOT; }
+"or"	{ return OR; }
+"and"	{ return AND; }
 
 "write"			{ return WRITE; }
 "writestring"	{ return WRITESTRING; }
@@ -152,13 +152,13 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
 {IDENTIFIER}   	{
 					std::string identifier(yytext);
-					yylval.identifier =  strdup(yytext); 
+					yylval.identifier =  strdup(yytext);
 
-					/* If the identifier is not in the table of symbols then it is inserted */	
+					/* If the identifier is not in the table of symbols then it is inserted */
 					if (table.lookupSymbol(identifier) == false)
 					{
-						/* 
-							The identifier is inserted into the symbol table 
+						/*
+							The identifier is inserted into the symbol table
 							as undefined Variable with value 0.0
 						*/
 						lp::NumericVariable *n = new lp::NumericVariable(identifier,VARIABLE,UNDEFINED,0.0);
@@ -168,7 +168,7 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
 						return VARIABLE;
 					}
-					else 
+					else
 					{
 						lp::Symbol	*s = table.getSymbol(identifier);
 
@@ -189,23 +189,23 @@ IDENTIFIER  {LETTER}(_?{LETTER}|{DIGIT})*
 
 
 .	{
-		BEGIN(ERROR); 
-		yymore();  
+		BEGIN(ERROR);
+		yymore();
 	}
 
 <ERROR>[^0-9+\-*/()\^% \t\n\;a-zA-Z=<>!&]	{ /* MODIFIED in examples 5, 7, 15 */
 								  /* NEW in example 3 */
-								  /* 
-									The current value of yytext 
+								  /*
+									The current value of yytext
 									will be concatenated with the next character
 								  */
-									yymore(); 
+									yymore();
 								}
 
-<ERROR>(.|\n)                { 
+<ERROR>(.|\n)                {
 								/* NEW in example 3 */
 								/* Rewind one position */
-								yyless(yyleng-1); 
+								yyless(yyleng-1);
 
 								/* Display the error message */
 								warning("Lexical error", yytext);

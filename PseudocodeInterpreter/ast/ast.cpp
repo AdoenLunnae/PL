@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    ast.cpp
 	\brief   Code of funcitons of AST clas
-	\author  
+	\author
 	\date    2018-12-13
 	\version 1.0
 */
@@ -876,7 +876,7 @@ void lp::AssignmentStmt::print()
 void lp::AssignmentStmt::evaluate()
 {
     /* Get the identifier in the table of symbols as Variable */
-    /* 
+    /*
 		a = 2;
 		a = b = 2;
 

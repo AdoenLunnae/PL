@@ -21,4 +21,4 @@ inicio # El programa calcula el n-esimo numero de fibonacci iterativamente
 		escribir ( actual );
 	fin_si
 fin
-	
+

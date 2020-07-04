@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    builtin.hpp
 	\brief   Declaration of Builtin (built-in function) class
-	\author  
+	\author
 	\date    2017-12-7
 	\version 1.0
 */
@@ -14,13 +14,13 @@
 
 #include "symbol.hpp"
 
-/*!	
+/*!
 	\namespace lp
 	\brief Name space for the subject Language Processors
 */
 namespace lp{
 
-/*!	
+/*!
   \class     Builtin
   \attention Abstrac class
   \brief     Definition of atributes and methods of Builtin class
@@ -28,22 +28,22 @@ namespace lp{
 */
 class Builtin:public lp::Symbol
 {
-/*!		
+/*!
 \name Protected atribute of Builtin class
 */
 	protected:
 		int      	_nParameters;    //!< \brief Number of parameters of Builtin
 
-/*!		
+/*!
 \name Public methods of Builtin class
 */
 	public:
 
-/*!	
+/*!
 	\name Constructors
 */
-		
-/*!		
+
+/*!
 	\brief Constructor with arguments with default values
 	\note  Inline function that uses Symbol's constructor as members initializer
 	\param name: name of the Builtin
@@ -57,8 +57,8 @@ class Builtin:public lp::Symbol
 	{
 		this->setNParameters(nParameters);
 	}
-		
-/*!		
+
+/*!
 	\brief Copy constructor
 	\note  Inline function
 	\param b: object of Builtin class
@@ -77,7 +77,7 @@ class Builtin:public lp::Symbol
 	}
 
 
-/*!	
+/*!
 	\name Observer
 */
 
@@ -92,34 +92,34 @@ class Builtin:public lp::Symbol
 	inline int getNParameters() const
 	{
 		return this->_nParameters;
-	}	
+	}
 
 
-/*!	
+/*!
 	\name Modifier
 */
 
 
-/*!	
+/*!
 	\brief   This functions modifies the token of the Builtin
 	\note    Función inline
 	\param   nParameters: new nParameters of the Builtin
 	\pre     None
-	\post    The nParameters of the Builtin is equal to the parameter 
+	\post    The nParameters of the Builtin is equal to the parameter
 	\return  void
 	\sa 	 setName, setToken
 */
-	inline void setNParameters(int nParameters) 
+	inline void setNParameters(int nParameters)
 	{
 	    this->_nParameters = nParameters;
 	}
 
 
-/*!	
+/*!
 	\name Operator
 */
-	
-/*!		
+
+/*!
 	\brief  Assignment Operator
 	\note   Virtual method: can be redefined in the heir class
 	\param  b: object of Builtin class
@@ -127,15 +127,15 @@ class Builtin:public lp::Symbol
 	\return Reference to this object
 */
 	virtual Builtin &operator=(const Builtin &b);
-		
 
-		
-/*!	
+
+
+/*!
 	\name I/O Functions
 */
-		
 
-/*!		
+
+/*!
 	\brief Write a Builtin
 	\note  Virtual method: can be redefined in the heir class
 	\pre   None
@@ -145,7 +145,7 @@ class Builtin:public lp::Symbol
 	virtual void write() const;
 
 
-/*!		
+/*!
 	\brief   Read a Builtin
 	\note    Virtual method: can be redefined in the heir class
 	\pre     None
@@ -154,7 +154,7 @@ class Builtin:public lp::Symbol
 */
 	virtual void read();
 
-	
+
 // End of Builtin class
 };
 

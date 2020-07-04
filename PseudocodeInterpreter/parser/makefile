@@ -17,23 +17,23 @@ CFLAGS = -c -g  -Wall -ansi -O2
 LEX = flex
 
 #GNU Project parser generator (yacc replacement)
-YACC= bison 
+YACC= bison
 
 # Options
 # -d: the file y.tab.h is generated
 # -y: yacc compatibility --> y.tab.c y.tab.h (OPTIONAL)
 # -t: debug
-# -g: the file y.dot is generated; 
-#     this file can be seen on the screen using 
-#       dot -Tx11 y.dot 
-#       Alternatives 
+# -g: the file y.dot is generated;
+#     this file can be seen on the screen using
+#       dot -Tx11 y.dot
+#       Alternatives
 #	 	dot -TXXX y.dot -o y.XXX
 #	    where XXX can be: gif, pdf, png, ps, svg
 # -v  the file y.output is generated (OPTIONAL)
 YFLAGS = -d -t -g
 
 # Objects
-OBJECTS= $(NAME).tab.o lex.yy.o 
+OBJECTS= $(NAME).tab.o lex.yy.o
 
 # Includes
 # MODIFIED in example 7: ../table/table.hpp  ../table/numericVariable.hpp
@@ -47,7 +47,7 @@ INCLUDES = ../error/error.hpp ../includes/macros.hpp \
 			../table/init.hpp \
 			../table/numericConstant.hpp \
 			../table/builtinParameter1.hpp \
-			../table/builtinParameter0.hpp	../table/builtinParameter2.hpp 
+			../table/builtinParameter0.hpp	../table/builtinParameter2.hpp
 
 
 #######################################################
@@ -77,25 +77,25 @@ $(NAME).tab.o: $(NAME).tab.c  $(NAME).tab.h $(INCLUDES)
 
 $(NAME).tab.c $(NAME).tab.h: $(NAME).y $(INCLUDES)
 	@echo "Generating: " $(NAME).tab.c $(NAME).tab.h
-	@$(YACC) $(YFLAGS) $< 
+	@$(YACC) $(YFLAGS) $<
 	@echo
 
 
 
 #######################################################
 # Generate the output file to show conflicts, if they exist
-$(NAME).output: $(NAME).y $(INCLUDES) 
+$(NAME).output: $(NAME).y $(INCLUDES)
 	@echo "Generating: " $@
-	@$(YACC) -v $< 
+	@$(YACC) -v $<
 	@echo
 
 
 #######################################################
 # Auxiliary files directory are deleted
-clean: 
+clean:
 	@echo
 	@echo "Deleting in subdirectory parser"
-	@rm -f $(OBJECTS) $(NAME).tab.[ch] lex.yy.c $(NAME).dot $(NAME).output *~ 
+	@rm -f $(OBJECTS) $(NAME).tab.[ch] lex.yy.c $(NAME).dot $(NAME).output *~
 	@echo
 
 

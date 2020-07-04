@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    symbol.cpp
 	\brief   Code of some functions of Symbol class
-	\author 
+	\author
 	\date    2017-12-1
 	\version 1.0
 */
@@ -17,7 +17,7 @@
 /*
 	\name Relational operators
 */
-	
+
 
 bool lp::Symbol::operator==(const lp::Symbol & s) const
 	{

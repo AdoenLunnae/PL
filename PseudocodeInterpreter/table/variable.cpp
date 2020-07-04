@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    variable.cpp
 	\brief   Code of some functions of Variable class
-	\author 
+	\author
 	\date    2017-10-19
 	\version 1.0
 */
@@ -20,7 +20,7 @@
 lp::Variable &lp::Variable::operator=(const lp::Variable &v)
   {
  	// Check that is not the current object
-		if (this != &v) 
+		if (this != &v)
 		{
 			// Inherited methods
 			this->setName(v.getName());
@@ -36,10 +36,10 @@ lp::Variable &lp::Variable::operator=(const lp::Variable &v)
   }
 
 
-/*	
+/*
   	I/O Functions
 */
-	
+
 
 void lp::Variable::read()
 {
@@ -49,14 +49,14 @@ void lp::Variable::read()
 
    std::cout << "Token of the Variable: ";
    std::cin >> this->_token;
-   // The \n character is read 
-   std::cin.ignore(); 
+   // The \n character is read
+   std::cin.ignore();
 
   // Own attribute
    std::cout << "Type of the Variable: ";
    std::cin >> this->_type;
-   // The \n character is read 
-   std::cin.ignore(); 
+   // The \n character is read
+   std::cin.ignore();
 
 }
 

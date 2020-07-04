@@ -1,7 +1,7 @@
-/*!	
+/*!
 	\file    init.cpp
 	\brief   Code of the function for the initialization of table of symbols
-	\author  
+	\author
 	\date    2017-12-5
 	\version 1.0
 */
@@ -13,7 +13,7 @@
 #include "table.hpp"
 
 
-//  NEW in example 11 
+//  NEW in example 11
 #include "numericConstant.hpp"
 
 #include "logicalConstant.hpp"
@@ -41,7 +41,7 @@ void init(lp::Table &t)
 {
  int i;
 
- //  MODIFIED in example 11 
+ //  MODIFIED in example 11
  lp::NumericConstant *n;
 
  // The predefined numeric constants are installed in the table of symbols
@@ -144,7 +144,7 @@ void init(lp::Table &t)
 									   2,		  // Number of parameters
 									   function_2[i].function);
 
-		
+
 		// A pointer to the new Keyword is inserted into the table of symbols
 		t.installSymbol(f2);
 	}
