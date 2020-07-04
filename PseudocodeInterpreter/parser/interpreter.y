@@ -298,7 +298,7 @@ for:	FOR controlSymbol VARIABLE FROM exp TO exp DO stmt ENDFOR
 
 			control --;
 		}
-		| FOR controlSymbol VARIABLE FROM exp TO exp STEP exp DO stmt ENDFOR
+	|   FOR controlSymbol VARIABLE FROM exp TO exp STEP exp DO stmt ENDFOR
 		{
 			$$ = new lp::ForStmt($3, $5, $7, $9, $11);
 
@@ -426,13 +426,18 @@ exp:	NUMBER
   		  $$ = new lp::PowerNode($1, $3);
 		}
 
-	 | VARIABLE
+    |   STRING
+        {
+            $$ = new lp::StringNode($1);
+        }
+
+	|   VARIABLE
 		{
 		  // Create a new variable node
 		  $$ = new lp::VariableNode($1);
 		}
 
-	 | CONSTANT
+	|   CONSTANT
 		{
 		  // Create a new constant node
 		  $$ = new lp::ConstantNode($1);
